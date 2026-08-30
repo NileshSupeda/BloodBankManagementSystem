@@ -1,0 +1,184 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="text-center mb-5">
+    <h1 class="display-5 fw-bold">
+        Blood Bank Management System
+    </h1>
+
+    <p class="lead text-muted">
+        Dashboard
+    </p>
+</div>
+
+<div class="row g-4">
+
+    <!-- Total Donors -->
+    <div class="col-md-6 col-lg-3">
+        <div class="card shadow-sm h-100 border-0">
+            <div class="card-body text-center">
+
+                <h5 class="card-title">
+                    Total Donors
+                </h5>
+
+                <h2 class="display-6 fw-bold text-primary">
+                    @ViewBag.TotalDonors
+                </h2>
+
+                <p class="text-muted">
+                    Registered donors
+                </p>
+
+                <a asp-controller="Donors"
+                   asp-action="Index"
+                   class="btn btn-primary">
+                    View Donors
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Total Blood Units -->
+    <div class="col-md-6 col-lg-3">
+        <div class="card shadow-sm h-100 border-0">
+            <div class="card-body text-center">
+
+                <h5 class="card-title">
+                    Total Blood Units
+                </h5>
+
+                <h2 class="display-6 fw-bold text-danger">
+                    @ViewBag.TotalBloodUnits
+                </h2>
+
+                <p class="text-muted">
+                    Total blood stock
+                </p>
+
+                <a asp-controller="BloodUnits"
+                   asp-action="Index"
+                   class="btn btn-danger">
+                    View Stock
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Available Blood Units -->
+    <div class="col-md-6 col-lg-3">
+        <div class="card shadow-sm h-100 border-0">
+            <div class="card-body text-center">
+
+                <h5 class="card-title">
+                    Available Blood
+                </h5>
+
+                <h2 class="display-6 fw-bold text-success">
+                    @ViewBag.AvailableBloodUnits
+                </h2>
+
+                <p class="text-muted">
+                    Currently available
+                </p>
+
+                <a asp-controller="BloodUnits"
+                   asp-action="Index"
+                   class="btn btn-success">
+                    View Stock
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Pending Requests -->
+    <div class="col-md-6 col-lg-3">
+        <div class="card shadow-sm h-100 border-0">
+            <div class="card-body text-center">
+
+                <h5 class="card-title">
+                    Pending Requests
+                </h5>
+
+                <h2 class="display-6 fw-bold text-warning">
+                    @ViewBag.PendingRequests
+                </h2>
+
+                <p class="text-muted">
+                    Requests awaiting action
+                </p>
+
+                <a asp-controller="BloodRequests"
+                   asp-action="Index"
+                   class="btn btn-warning">
+                    View Requests
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Total Blood Requests -->
+    <div class="col-md-6 col-lg-3">
+        <div class="card shadow-sm h-100 border-0">
+            <div class="card-body text-center">
+
+                <h5 class="card-title">
+                    Total Requests
+                </h5>
+
+                <h2 class="display-6 fw-bold text-info">
+                    @ViewBag.TotalBloodRequests
+                </h2>
+
+                <p class="text-muted">
+                    All blood requests
+                </p>
+
+                <a asp-controller="BloodRequests"
+                   asp-action="Index"
+                   class="btn btn-info">
+                    View Requests
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Total Blood Issues -->
+    <div class="col-md-6 col-lg-3">
+        <div class="card shadow-sm h-100 border-0">
+            <div class="card-body text-center">
+
+                <h5 class="card-title">
+                    Blood Issues
+                </h5>
+
+                <h2 class="display-6 fw-bold text-secondary">
+                    @ViewBag.TotalBloodIssues
+                </h2>
+
+                <p class="text-muted">
+                    Blood issued to patients
+                </p>
+
+                <a asp-controller="BloodIssues"
+                   asp-action="Index"
+                   class="btn btn-secondary">
+                    View Issues
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,98 @@
+﻿@model List<BloodBankManagementSystem.Models.Donor>
+
+@{
+    ViewData["Title"] = "Donors";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1>Donors</h1>
+        <p class="text-muted mb-0">
+            Manage registered blood donors.
+        </p>
+    </div>
+
+    <a asp-action="Create"
+       class="btn btn-primary">
+        Add New Donor
+    </a>
+</div>
+
+<div class="card shadow-sm">
+
+    <div class="card-body">
+
+        <div class="table-responsive">
+
+            <table class="table table-bordered table-hover align-middle">
+
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Blood Group</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @foreach (var donor in Model)
+                    {
+                        <tr>
+
+                            <td>
+                                @donor.DonorId
+                            </td>
+
+                            <td>
+                                @donor.Name
+                            </td>
+
+                            <td>
+                                <span class="badge bg-danger">
+                                    @donor.BloodGroup
+                                </span>
+                            </td>
+
+                            <td>
+                                @donor.Phone
+                            </td>
+
+                            <td>
+                                @donor.Email
+                            </td>
+
+                            <td>
+                                @donor.Address
+                            </td>
+
+                            <td>
+                                <a asp-action="Edit"
+                                   asp-route-id="@donor.DonorId"
+                                   class="btn btn-sm btn-warning">
+                                    Edit
+                                </a>
+
+                                <a asp-action="Delete"
+                                   asp-route-id="@donor.DonorId"
+                                   class="btn btn-sm btn-danger">
+                                    Delete
+                                </a>
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
