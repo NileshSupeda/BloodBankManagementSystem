@@ -1,10 +1,10 @@
-﻿@model List<BloodBankManagementSystem.Models.Donor>
+@model List<BloodBankManagementSystem.Models.Donor>
 
 @{
     ViewData["Title"] = "Donors";
 }
 
-<div class="d-flex justify-content-between align-items-center mb-4">
+<div class="page-heading d-flex justify-content-between align-items-center mb-4">
     <div>
         <h1>Donors</h1>
         <p class="text-muted mb-0">
@@ -18,28 +18,40 @@
     </a>
 </div>
 
-<div class="card shadow-sm">
+<div class="data-card card shadow-sm border-0">
 
     <div class="card-body">
 
-        <div class="table-responsive">
+        <div class="table-responsive" role="region" tabindex="0" aria-label="Donor records">
 
-            <table class="table table-bordered table-hover align-middle">
+            <table class="table table-hover align-middle mb-0">
 
                 <thead class="table-light">
                     <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Blood Group</th>
-                        <th>Phone</th>
-                        <th>Email</th>
-                        <th>Address</th>
-                        <th>Actions</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Blood Group</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Actions</th>
                     </tr>
                 </thead>
 
                 <tbody>
 
+                    @if (Model.Count == 0)
+                    {
+                        <tr class="empty-state-row">
+                            <td colspan="7" class="empty-state-cell">
+                                <i class="bi bi-inbox" aria-hidden="true"></i>
+                                <span>No donors have been registered yet.</span>
+                                <a asp-action="Create" class="btn btn-sm btn-primary">Add the first donor</a>
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
                     @foreach (var donor in Model)
                     {
                         <tr>
@@ -71,20 +83,17 @@
                             </td>
 
                             <td>
-                                <a asp-action="Edit"
-                                   asp-route-id="@donor.DonorId"
-                                   class="btn btn-sm btn-warning">
-                                    Edit
-                                </a>
+                                <a asp-action="Edit" asp-route-id="@donor.DonorId" class="btn btn-sm btn-outline-primary">Edit</a>
 
-                                <a asp-action="Delete"
-                                   asp-route-id="@donor.DonorId"
-                                   class="btn btn-sm btn-danger">
-                                    Delete
-                                </a>
+                                <form asp-action="Delete" asp-route-id="@donor.DonorId" method="post" class="d-inline"
+                                      onsubmit="return confirm('Are you sure you want to delete this donor? This action cannot be undone.');">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                                </form>
                             </td>
 
                         </tr>
+                    }
+
                     }
 
                 </tbody>

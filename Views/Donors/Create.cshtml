@@ -1,4 +1,4 @@
-﻿@model BloodBankManagementSystem.Models.Donor
+@model BloodBankManagementSystem.Models.Donor
 
 @{
     ViewData["Title"] = "Add Donor";
@@ -9,7 +9,7 @@
     <p class="text-muted">Enter the donor information below.</p>
 </div>
 
-<div class="card shadow-sm">
+<div class="form-card card shadow-sm border-0">
     <div class="card-body">
 
         <form asp-action="Create" method="post">
@@ -93,6 +93,8 @@
                 </label>
 
                 <input asp-for="Email"
+                       type="email"
+                       autocomplete="email"
                        class="form-control" />
 
                 <span asp-validation-for="Email"

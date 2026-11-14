@@ -1,10 +1,10 @@
-﻿@model List<BloodBankManagementSystem.Models.BloodUnit>
+@model List<BloodBankManagementSystem.Models.BloodUnit>
 
 @{
     ViewData["Title"] = "Blood Units";
 }
 
-<div class="d-flex justify-content-between align-items-center mb-4">
+<div class="page-heading d-flex justify-content-between align-items-center mb-4">
 
     <div>
         <h1>Blood Units</h1>
@@ -20,27 +20,40 @@
 
 </div>
 
-<div class="card shadow-sm">
+<div class="data-card card shadow-sm border-0">
 
     <div class="card-body">
 
-        <div class="table-responsive">
+        <div class="table-responsive" role="region" tabindex="0" aria-label="Blood unit records">
 
-            <table class="table table-bordered table-hover align-middle">
+            <table class="table table-hover align-middle mb-0">
 
                 <thead class="table-light">
                     <tr>
-                        <th>ID</th>
-                        <th>Blood Group</th>
-                        <th>Collection Date</th>
-                        <th>Expiry Date</th>
-                        <th>Status</th>
-                        <th>Actions</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Blood Group</th>
+                        <th scope="col">Component Type</th>
+                        <th scope="col">Collection Date</th>
+                        <th scope="col">Expiry Date</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Actions</th>
                     </tr>
                 </thead>
 
                 <tbody>
 
+                    @if (Model.Count == 0)
+                    {
+                        <tr class="empty-state-row">
+                            <td colspan="7" class="empty-state-cell">
+                                <i class="bi bi-inbox" aria-hidden="true"></i>
+                                <span>No blood units have been added yet.</span>
+                                <a asp-action="Create" class="btn btn-sm btn-primary">Add the first blood unit</a>
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
                     @foreach (var bloodUnit in Model)
                     {
                         <tr>
@@ -56,11 +69,15 @@
                             </td>
 
                             <td>
-                                @bloodUnit.CollectionDate.ToShortDateString()
+                                @bloodUnit.ComponentType
                             </td>
 
                             <td>
-                                @bloodUnit.ExpiryDate.ToShortDateString()
+                                @bloodUnit.CollectionDate.ToString("dd MMM yyyy")
+                            </td>
+
+                            <td>
+                                @bloodUnit.ExpiryDate.ToString("dd MMM yyyy")
                             </td>
 
                             <td>
@@ -71,10 +88,10 @@
                                         Available
                                     </span>
                                 }
-                                else if (bloodUnit.Status == "Used")
+                                else if (bloodUnit.Status == "Issued" || bloodUnit.Status == "Used")
                                 {
                                     <span class="badge bg-secondary">
-                                        Used
+                                        @bloodUnit.Status
                                     </span>
                                 }
                                 else if (bloodUnit.Status == "Expired")
@@ -94,21 +111,18 @@
 
                             <td>
 
-                                <a asp-action="Edit"
-                                   asp-route-id="@bloodUnit.BloodUnitId"
-                                   class="btn btn-sm btn-warning">
-                                    Edit
-                                </a>
+                                <a asp-action="Edit" asp-route-id="@bloodUnit.BloodUnitId" class="btn btn-sm btn-outline-primary">Edit</a>
 
-                                <a asp-action="Delete"
-                                   asp-route-id="@bloodUnit.BloodUnitId"
-                                   class="btn btn-sm btn-danger">
-                                    Delete
-                                </a>
+                                <form asp-action="Delete" asp-route-id="@bloodUnit.BloodUnitId" method="post" class="d-inline"
+                                      onsubmit="return confirm('Are you sure you want to delete this blood unit? This action cannot be undone.');">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                                </form>
 
                             </td>
 
                         </tr>
+                    }
+
                     }
 
                 </tbody>

@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewData["Title"] = "Staff Login";
     Layout = null;
 }
@@ -114,8 +114,8 @@
             }
 
                 .form-control:focus {
-                    border-color: #0d6efd;
-                    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.12);
+                    border-color: #e63946;
+                    box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.12);
                 }
 
             .login-button {
@@ -123,7 +123,7 @@
                 height: 50px;
                 border: none;
                 border-radius: 10px;
-                background: linear-gradient(135deg, #0d6efd, #1769e0);
+                background: linear-gradient(135deg, #ed3b49, #c1121f);
                 color: white;
                 font-size: 16px;
                 font-weight: 600;
@@ -133,7 +133,7 @@
 
                 .login-button:hover {
                     transform: translateY(-1px);
-                    box-shadow: 0 8px 18px rgba(13, 110, 253, 0.25);
+                    box-shadow: 0 8px 18px rgba(193, 18, 31, 0.22);
                 }
 
             .secure-access {
@@ -219,7 +219,7 @@
 
             @if (ViewBag.Error != null)
             {
-                <div class="alert alert-danger">
+                <div class="alert alert-danger" role="alert">
                     @ViewBag.Error
                 </div>
             }
@@ -233,14 +233,16 @@
                 <!-- Email -->
                 <div class="mb-3">
 
-                    <label class="form-label">
+                    <label class="form-label" for="loginEmail">
                         Email
                     </label>
 
-                    <input type="email"
+                    <input id="loginEmail" type="email"
                            name="email"
                            class="form-control"
                            placeholder="Enter staff email"
+                           autocomplete="username"
+                           autofocus
                            required />
 
                 </div>
@@ -249,14 +251,15 @@
                 <!-- Password -->
                 <div class="mb-3">
 
-                    <label class="form-label">
+                    <label class="form-label" for="loginPassword">
                         Password
                     </label>
 
-                    <input type="password"
+                    <input id="loginPassword" type="password"
                            name="password"
                            class="form-control"
                            placeholder="Enter password"
+                           autocomplete="current-password"
                            required />
 
                 </div>
@@ -288,7 +291,7 @@
         <!-- Footer -->
         <div class="footer">
 
-            © 2026 - Blood Bank Management System
+            © @DateTime.Now.Year - Blood Bank Management System
 
         </div>
 

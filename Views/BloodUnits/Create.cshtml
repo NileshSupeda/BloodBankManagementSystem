@@ -1,4 +1,4 @@
-﻿@model BloodBankManagementSystem.Models.BloodUnit
+@model BloodBankManagementSystem.Models.BloodUnit
 
 @{
     ViewData["Title"] = "Add Blood Unit";
@@ -9,7 +9,7 @@
     <p class="text-muted">Enter the blood unit information below.</p>
 </div>
 
-<div class="card shadow-sm">
+<div class="form-card card shadow-sm border-0">
     <div class="card-body">
 
         <form asp-action="Create" method="post" id="bloodUnitForm">
@@ -119,6 +119,7 @@
 
                     <option value="">-- Select Status --</option>
                     <option value="Available">Available</option>
+                    <option value="Issued">Issued</option>
                     <option value="Used">Used</option>
                     <option value="Expired">Expired</option>
 

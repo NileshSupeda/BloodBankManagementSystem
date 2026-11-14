@@ -1,6 +1,7 @@
+
 <Solution>
   <Folder Name="/Solution Items/">
     <File Path=".gitignore" />
   </Folder>
-  <Project Path="D:/WAD Projects/BloodBankManagementSystem/BloodBankManagementSystem.csproj" />
+  <Project Path="BloodBankManagementSystem.csproj" />
 </Solution>

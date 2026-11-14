@@ -1,184 +1,496 @@
-﻿@{
+@{
     ViewData["Title"] = "Dashboard";
+    var availableStockByGroup = ViewData["AvailableStockByGroup"] as Dictionary<string, int>
+        ?? new Dictionary<string, int>();
+    var bloodGroups = new[] { "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-" };
 }
 
-<div class="text-center mb-5">
-    <h1 class="display-5 fw-bold">
-        Blood Bank Management System
-    </h1>
+<!-- HERO -->
+<div class="dashboard-hero">
 
-    <p class="lead text-muted">
-        Dashboard
-    </p>
+    <div class="hero-content">
+
+        <div class="hero-small-title">
+            WELCOME BACK,
+        </div>
+
+        <h1>
+            Blood Bank
+            <span>Management System</span>
+        </h1>
+
+        <p>
+            Manage donors, blood stock, requests and issues efficiently.
+            <br />
+            Every drop counts. Together we can save lives.
+        </p>
+
+    </div>
+
+    <div class="hero-decoration">
+
+        <div class="hero-circle">
+            <i class="bi bi-heart-pulse-fill"></i>
+        </div>
+
+        <div class="blood-drop">
+            <i class="bi bi-droplet-fill"></i>
+        </div>
+
+    </div>
+
 </div>
 
-<div class="row g-4">
 
-    <!-- Total Donors -->
-    <div class="col-md-6 col-lg-3">
-        <div class="card shadow-sm h-100 border-0">
-            <div class="card-body text-center">
+<!-- STATISTICS -->
+<div class="stats-grid">
 
-                <h5 class="card-title">
-                    Total Donors
-                </h5>
 
-                <h2 class="display-6 fw-bold text-primary">
-                    @ViewBag.TotalDonors
-                </h2>
+    <!-- DONORS -->
+    <div class="stat-card stat-blue">
 
-                <p class="text-muted">
-                    Registered donors
-                </p>
+        <div class="stat-top">
 
-                <a asp-controller="Donors"
-                   asp-action="Index"
-                   class="btn btn-primary">
-                    View Donors
-                </a>
-
+            <div class="stat-icon">
+                <i class="bi bi-people-fill"></i>
             </div>
+
+            <a asp-controller="Donors"
+               asp-action="Index"
+               class="stat-arrow" aria-label="View donors">
+
+                <i class="bi bi-arrow-up-right"></i>
+
+            </a>
+
         </div>
+
+        <div class="stat-title">
+            Total Donors
+        </div>
+
+        <div class="stat-number">
+            @ViewBag.TotalDonors
+        </div>
+
+        <div class="stat-description">
+            Registered donors
+        </div>
+
+        <div class="stat-line"></div>
+
     </div>
 
 
-    <!-- Total Blood Units -->
-    <div class="col-md-6 col-lg-3">
-        <div class="card shadow-sm h-100 border-0">
-            <div class="card-body text-center">
+    <!-- TOTAL BLOOD -->
+    <div class="stat-card stat-red">
 
-                <h5 class="card-title">
-                    Total Blood Units
-                </h5>
+        <div class="stat-top">
 
-                <h2 class="display-6 fw-bold text-danger">
-                    @ViewBag.TotalBloodUnits
-                </h2>
-
-                <p class="text-muted">
-                    Total blood stock
-                </p>
-
-                <a asp-controller="BloodUnits"
-                   asp-action="Index"
-                   class="btn btn-danger">
-                    View Stock
-                </a>
-
+            <div class="stat-icon">
+                <i class="bi bi-droplet-fill"></i>
             </div>
+
+            <a asp-controller="BloodUnits"
+               asp-action="Index"
+               class="stat-arrow" aria-label="View blood units">
+
+                <i class="bi bi-arrow-up-right"></i>
+
+            </a>
+
         </div>
+
+        <div class="stat-title">
+            Total Blood Units
+        </div>
+
+        <div class="stat-number">
+            @ViewBag.TotalBloodUnits
+        </div>
+
+        <div class="stat-description">
+            Total blood stock
+        </div>
+
+        <div class="stat-line"></div>
+
     </div>
 
 
-    <!-- Available Blood Units -->
-    <div class="col-md-6 col-lg-3">
-        <div class="card shadow-sm h-100 border-0">
-            <div class="card-body text-center">
+    <!-- AVAILABLE -->
+    <div class="stat-card stat-green">
 
-                <h5 class="card-title">
-                    Available Blood
-                </h5>
+        <div class="stat-top">
 
-                <h2 class="display-6 fw-bold text-success">
-                    @ViewBag.AvailableBloodUnits
-                </h2>
-
-                <p class="text-muted">
-                    Currently available
-                </p>
-
-                <a asp-controller="BloodUnits"
-                   asp-action="Index"
-                   class="btn btn-success">
-                    View Stock
-                </a>
-
+            <div class="stat-icon">
+                <i class="bi bi-check-circle-fill"></i>
             </div>
+
+            <a asp-controller="BloodUnits"
+               asp-action="Index"
+               class="stat-arrow" aria-label="View blood units">
+
+                <i class="bi bi-arrow-up-right"></i>
+
+            </a>
+
         </div>
+
+        <div class="stat-title">
+            Available Blood
+        </div>
+
+        <div class="stat-number">
+            @ViewBag.AvailableBloodUnits
+        </div>
+
+        <div class="stat-description">
+            Currently available
+        </div>
+
+        <div class="stat-line"></div>
+
     </div>
 
 
-    <!-- Pending Requests -->
-    <div class="col-md-6 col-lg-3">
-        <div class="card shadow-sm h-100 border-0">
-            <div class="card-body text-center">
+    <!-- PENDING -->
+    <div class="stat-card stat-orange">
 
-                <h5 class="card-title">
-                    Pending Requests
-                </h5>
+        <div class="stat-top">
 
-                <h2 class="display-6 fw-bold text-warning">
-                    @ViewBag.PendingRequests
-                </h2>
-
-                <p class="text-muted">
-                    Requests awaiting action
-                </p>
-
-                <a asp-controller="BloodRequests"
-                   asp-action="Index"
-                   class="btn btn-warning">
-                    View Requests
-                </a>
-
+            <div class="stat-icon">
+                <i class="bi bi-clock-fill"></i>
             </div>
+
+            <a asp-controller="BloodRequests"
+               asp-action="Index"
+               class="stat-arrow" aria-label="View blood requests">
+
+                <i class="bi bi-arrow-up-right"></i>
+
+            </a>
+
         </div>
+
+        <div class="stat-title">
+            Pending Requests
+        </div>
+
+        <div class="stat-number">
+            @ViewBag.PendingRequests
+        </div>
+
+        <div class="stat-description">
+            Requests awaiting action
+        </div>
+
+        <div class="stat-line"></div>
+
     </div>
 
 
-    <!-- Total Blood Requests -->
-    <div class="col-md-6 col-lg-3">
-        <div class="card shadow-sm h-100 border-0">
-            <div class="card-body text-center">
+    <!-- REQUESTS -->
+    <div class="stat-card stat-cyan">
 
-                <h5 class="card-title">
-                    Total Requests
-                </h5>
+        <div class="stat-top">
 
-                <h2 class="display-6 fw-bold text-info">
-                    @ViewBag.TotalBloodRequests
-                </h2>
-
-                <p class="text-muted">
-                    All blood requests
-                </p>
-
-                <a asp-controller="BloodRequests"
-                   asp-action="Index"
-                   class="btn btn-info">
-                    View Requests
-                </a>
-
+            <div class="stat-icon">
+                <i class="bi bi-clipboard2-pulse-fill"></i>
             </div>
+
+            <a asp-controller="BloodRequests"
+               asp-action="Index"
+               class="stat-arrow" aria-label="View blood requests">
+
+                <i class="bi bi-arrow-up-right"></i>
+
+            </a>
+
         </div>
+
+        <div class="stat-title">
+            Total Requests
+        </div>
+
+        <div class="stat-number">
+            @ViewBag.TotalBloodRequests
+        </div>
+
+        <div class="stat-description">
+            All blood requests
+        </div>
+
+        <div class="stat-line"></div>
+
     </div>
 
 
-    <!-- Total Blood Issues -->
-    <div class="col-md-6 col-lg-3">
-        <div class="card shadow-sm h-100 border-0">
-            <div class="card-body text-center">
+    <!-- ISSUES -->
+    <div class="stat-card stat-purple">
 
-                <h5 class="card-title">
-                    Blood Issues
-                </h5>
+        <div class="stat-top">
 
-                <h2 class="display-6 fw-bold text-secondary">
-                    @ViewBag.TotalBloodIssues
-                </h2>
+            <div class="stat-icon">
+                <i class="bi bi-box-arrow-up-right"></i>
+            </div>
 
-                <p class="text-muted">
-                    Blood issued to patients
+            <a asp-controller="BloodIssues"
+               asp-action="Index"
+               class="stat-arrow" aria-label="View blood issues">
+
+                <i class="bi bi-arrow-up-right"></i>
+
+            </a>
+
+        </div>
+
+        <div class="stat-title">
+            Blood Issues
+        </div>
+
+        <div class="stat-number">
+            @ViewBag.TotalBloodIssues
+        </div>
+
+        <div class="stat-description">
+            Blood issue records
+        </div>
+
+        <div class="stat-line"></div>
+
+    </div>
+
+</div>
+
+
+<!-- QUICK ACTIONS -->
+<div class="section-header">
+
+    <div>
+
+        <h2>
+            <i class="bi bi-lightning-charge-fill"></i>
+            Quick Actions
+        </h2>
+
+        <p>
+            Perform common tasks quickly
+        </p>
+
+    </div>
+
+</div>
+
+
+<div class="quick-actions">
+
+
+    <a asp-controller="Donors"
+       asp-action="Create"
+       class="quick-action">
+
+        <div class="quick-icon red">
+            <i class="bi bi-person-plus-fill"></i>
+        </div>
+
+        <span>Add Donor</span>
+
+        <i class="bi bi-arrow-right"></i>
+
+    </a>
+
+
+    <a asp-controller="BloodUnits"
+       asp-action="Create"
+       class="quick-action">
+
+        <div class="quick-icon pink">
+            <i class="bi bi-droplet-fill"></i>
+        </div>
+
+        <span>Add Blood Unit</span>
+
+        <i class="bi bi-arrow-right"></i>
+
+    </a>
+
+
+    <a asp-controller="BloodRequests"
+       asp-action="Create"
+       class="quick-action">
+
+        <div class="quick-icon blue">
+            <i class="bi bi-file-earmark-plus-fill"></i>
+        </div>
+
+        <span>Create Request</span>
+
+        <i class="bi bi-arrow-right"></i>
+
+    </a>
+
+
+    <a asp-controller="BloodIssues"
+       asp-action="Create"
+       class="quick-action">
+
+        <div class="quick-icon green">
+            <i class="bi bi-box-arrow-up-right"></i>
+        </div>
+
+        <span>Issue Blood</span>
+
+        <i class="bi bi-arrow-right"></i>
+
+    </a>
+
+
+    <a asp-controller="BloodUnits"
+       asp-action="Index"
+       class="quick-action">
+
+        <div class="quick-icon purple">
+            <i class="bi bi-bar-chart-fill"></i>
+        </div>
+
+        <span>View Blood Stock</span>
+
+        <i class="bi bi-arrow-right"></i>
+
+    </a>
+
+</div>
+
+
+<!-- INFORMATION SECTION -->
+<div class="dashboard-bottom">
+
+
+    <!-- BLOOD GROUP INFO -->
+    <div class="dashboard-panel">
+
+        <div class="panel-header">
+
+            <div>
+
+                <h3>
+                    <i class="bi bi-droplet-fill"></i>
+                    Blood Stock Overview
+                </h3>
+
+                <p>
+                    Current blood inventory
                 </p>
 
-                <a asp-controller="BloodIssues"
-                   asp-action="Index"
-                   class="btn btn-secondary">
-                    View Issues
-                </a>
+            </div>
+
+            <a asp-controller="BloodUnits"
+               asp-action="Index"
+               class="view-link">
+
+                View Stock
+                <i class="bi bi-arrow-right"></i>
+
+            </a>
+
+        </div>
+
+
+        <div class="blood-overview">
+            @foreach (var group in bloodGroups)
+            {
+                var unitsAvailable = availableStockByGroup.GetValueOrDefault(group);
+                <div class="blood-type">
+                    <span class="blood-badge">@group</span>
+                    <div class="blood-type-copy">
+                        <strong>Blood Group @group</strong>
+                        <small>Available units</small>
+                    </div>
+                    <span class="blood-count" aria-label="@unitsAvailable available units">@unitsAvailable</span>
+                </div>
+            }
+        </div>
+
+    </div>
+
+
+    <!-- SYSTEM SUMMARY -->
+    <div class="dashboard-panel summary-panel">
+
+        <div class="panel-header">
+
+            <div>
+
+                <h3>
+                    <i class="bi bi-activity"></i>
+                    System Summary
+                </h3>
+
+                <p>
+                    Current system information
+                </p>
 
             </div>
+
         </div>
+
+
+        <div class="summary-item">
+
+            <div class="summary-icon blue">
+                <i class="bi bi-people-fill"></i>
+            </div>
+
+            <div>
+                <strong>Donors</strong>
+                <span>@ViewBag.TotalDonors registered</span>
+            </div>
+
+        </div>
+
+
+        <div class="summary-item">
+
+            <div class="summary-icon red">
+                <i class="bi bi-droplet-fill"></i>
+            </div>
+
+            <div>
+                <strong>Blood Stock</strong>
+                <span>@ViewBag.AvailableBloodUnits units available</span>
+            </div>
+
+        </div>
+
+
+        <div class="summary-item">
+
+            <div class="summary-icon orange">
+                <i class="bi bi-clock-fill"></i>
+            </div>
+
+            <div>
+                <strong>Pending Requests</strong>
+                <span>@ViewBag.PendingRequests awaiting action</span>
+            </div>
+
+        </div>
+
+
+        <div class="summary-item">
+
+            <div class="summary-icon green">
+                <i class="bi bi-check-circle-fill"></i>
+            </div>
+
+            <div>
+                <strong>Blood Issues</strong>
+                <span>@ViewBag.TotalBloodIssues recorded</span>
+            </div>
+
+        </div>
+
     </div>
 
 </div>

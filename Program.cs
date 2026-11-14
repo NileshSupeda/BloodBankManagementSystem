@@ -50,29 +50,47 @@ app.MapControllerRoute(
     pattern: "{controller=Account}/{action=Login}/{id?}")
     .WithStaticAssets();
 
+
 using (var scope = app.Services.CreateScope())
 {
     var userManager = scope.ServiceProvider
         .GetRequiredService<UserManager<IdentityUser>>();
 
-    var staffEmail = "staff@bloodbank.com";
-    var staffPassword = "Staff@123";
+    var staffEmail = builder.Configuration["StaffAccount:Email"];
+    var staffPassword = builder.Configuration["StaffAccount:Password"];
 
-    var staffUser = await userManager.FindByEmailAsync(staffEmail);
-
-    if (staffUser == null)
+    if (!string.IsNullOrWhiteSpace(staffEmail) &&
+        !string.IsNullOrWhiteSpace(staffPassword))
     {
-        staffUser = new IdentityUser
-        {
-            UserName = staffEmail,
-            Email = staffEmail,
-            EmailConfirmed = true
-        };
+        var staffUser = await userManager.FindByEmailAsync(staffEmail);
 
-        await userManager.CreateAsync(
-            staffUser,
-            staffPassword);
+        if (staffUser == null)
+        {
+            staffUser = new IdentityUser
+            {
+                UserName = staffEmail,
+                Email = staffEmail,
+                EmailConfirmed = true
+            };
+
+            var result = await userManager.CreateAsync(
+                staffUser,
+                staffPassword);
+
+            if (!result.Succeeded)
+            {
+                throw new InvalidOperationException(
+                    "Failed to create the default staff account: " +
+                    string.Join("; ", result.Errors.Select(e => e.Description)));
+            }
+        }
+    }
+    else
+    {
+        app.Logger.LogWarning(
+            "Staff account credentials are not configured. Default staff account was not created.");
     }
 }
+
 
 app.Run();

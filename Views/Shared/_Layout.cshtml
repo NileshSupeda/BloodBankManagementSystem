@@ -1,134 +1,133 @@
-﻿<!DOCTYPE html>
+@{
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString() ?? string.Empty;
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - BloodBankManagementSystem</title>
-
-    <script type="importmap"></script>
+    <meta name="theme-color" content="#e63946" />
+    <title>@ViewData["Title"] - Blood Bank Management System</title>
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/BloodBankManagementSystem.styles.css" asp-append-version="true" />
 </head>
-
 <body>
+    <div class="app-wrapper">
+        <aside class="sidebar" id="mainSidebar" aria-label="Main navigation">
+            <a class="brand" asp-controller="Home" asp-action="Index" aria-label="Blood Bank dashboard">
+                <span class="brand-icon" aria-hidden="true"><i class="bi bi-heart-pulse-fill"></i></span>
+                <span class="brand-copy">
+                    <span class="brand-title">Blood Bank</span>
+                    <span class="brand-subtitle">Management System</span>
+                </span>
+            </a>
 
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <nav class="sidebar-section" aria-label="Main menu">
+                <div class="sidebar-heading">MAIN MENU</div>
 
-            <div class="container-fluid">
-
-                <a class="navbar-brand"
-                   asp-controller="Home"
-                   asp-action="Index">
-                    Blood Bank Management System
+                <a asp-controller="Home" asp-action="Index"
+                   class="sidebar-link @(currentController == "Home" ? "active" : string.Empty)"
+                   aria-current="@(currentController == "Home" ? "page" : null)">
+                    <i class="bi bi-grid-1x2-fill" aria-hidden="true"></i>
+                    <span>Dashboard</span>
                 </a>
 
-                <button class="navbar-toggler"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target=".navbar-collapse"
-                        aria-controls="navbarSupportedContent"
-                        aria-expanded="false"
-                        aria-label="Toggle navigation">
+                <a asp-controller="Donors" asp-action="Index"
+                   class="sidebar-link @(currentController == "Donors" ? "active" : string.Empty)"
+                   aria-current="@(currentController == "Donors" ? "page" : null)">
+                    <i class="bi bi-people-fill" aria-hidden="true"></i>
+                    <span>Donors</span>
+                </a>
 
-                    <span class="navbar-toggler-icon"></span>
+                <a asp-controller="BloodUnits" asp-action="Index"
+                   class="sidebar-link @(currentController == "BloodUnits" ? "active" : string.Empty)"
+                   aria-current="@(currentController == "BloodUnits" ? "page" : null)">
+                    <i class="bi bi-droplet-fill" aria-hidden="true"></i>
+                    <span>Blood Stock</span>
+                </a>
 
-                </button>
+                <a asp-controller="BloodRequests" asp-action="Index"
+                   class="sidebar-link @(currentController == "BloodRequests" ? "active" : string.Empty)"
+                   aria-current="@(currentController == "BloodRequests" ? "page" : null)">
+                    <i class="bi bi-clipboard2-pulse-fill" aria-hidden="true"></i>
+                    <span>Blood Requests</span>
+                </a>
 
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <a asp-controller="BloodIssues" asp-action="Index"
+                   class="sidebar-link @(currentController == "BloodIssues" ? "active" : string.Empty)"
+                   aria-current="@(currentController == "BloodIssues" ? "page" : null)">
+                    <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i>
+                    <span>Blood Issues</span>
+                </a>
+            </nav>
 
-                    <ul class="navbar-nav flex-grow-1">
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark"
-                               asp-controller="Home"
-                               asp-action="Index">
-                                Dashboard
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark"
-                               asp-controller="Donors"
-                               asp-action="Index">
-                                Donors
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark"
-                               asp-controller="BloodUnits"
-                               asp-action="Index">
-                                Blood Stock
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark"
-                               asp-controller="BloodRequests"
-                               asp-action="Index">
-                                Blood Requests
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark"
-                               asp-controller="BloodIssues"
-                               asp-action="Index">
-                                Blood Issues
-                            </a>
-                        </li>
-
-                    </ul>
-
-                    <form asp-controller="Account"
-                          asp-action="Logout"
-                          method="post"
-                          class="d-flex">
-
-                        <button type="submit"
-                                class="btn btn-outline-danger">
-                            Logout
-                        </button>
-
-                    </form>
-
+            <div class="sidebar-bottom">
+                <div class="donation-card">
+                    <i class="bi bi-droplet-half donation-icon" aria-hidden="true"></i>
+                    <h5>Donate Blood</h5>
+                    <p>Every drop can<br />save a life.</p>
+                    <div class="heartbeat" aria-hidden="true"><i class="bi bi-heart-pulse-fill"></i></div>
                 </div>
 
+                <form asp-controller="Account" asp-action="Logout" method="post">
+                    <button type="submit" class="sidebar-link logout-link">
+                        <i class="bi bi-box-arrow-right" aria-hidden="true"></i>
+                        <span>Logout</span>
+                    </button>
+                </form>
             </div>
+        </aside>
 
-        </nav>
-    </header>
+        <button type="button" class="sidebar-backdrop" id="sidebarBackdrop"
+                aria-label="Close navigation menu" tabindex="-1"></button>
 
-    <div class="container">
+        <main class="main-content">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button type="button" class="mobile-menu-toggle" id="sidebarToggle"
+                            aria-controls="mainSidebar" aria-expanded="false" aria-label="Open navigation menu">
+                        <i class="bi bi-list" aria-hidden="true"></i>
+                    </button>
+                    <div class="mobile-brand">
+                        <i class="bi bi-heart-pulse-fill" aria-hidden="true"></i>
+                        <span>Blood Bank</span>
+                    </div>
+                </div>
 
-        <main role="main" class="pb-3">
+                <div class="search-box" role="search">
+                    <i class="bi bi-search" aria-hidden="true"></i>
+                    <label class="visually-hidden" for="globalSearch">Search the current page</label>
+                    <input id="globalSearch" type="search" placeholder="Search this page..."
+                           autocomplete="off" aria-describedby="searchHelp" />
+                    <span id="searchHelp" class="visually-hidden">Filters visible dashboard cards and table rows.</span>
+                </div>
 
-            @RenderBody()
+                <div class="topbar-right">
+                    <div class="admin-profile">
+                        <div class="admin-avatar" aria-hidden="true"><i class="bi bi-person-fill"></i></div>
+                        <div class="admin-info">
+                            <strong>@(User.Identity?.Name ?? "Staff member")</strong>
+                            <small>Staff account</small>
+                        </div>
+                    </div>
+                </div>
+            </header>
 
+            <section class="page-container">
+                @RenderBody()
+            </section>
+
+            <footer class="app-footer">
+                <span>© @DateTime.Now.Year Blood Bank Management System</span>
+                <span><i class="bi bi-heart-fill" aria-hidden="true"></i> Saving lives, one drop at a time</span>
+            </footer>
         </main>
-
     </div>
 
-    <footer class="border-top footer text-muted">
-
-        <div class="container">
-
-            &copy; 2026 - Blood Bank Management System
-
-        </div>
-
-    </footer>
-
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-
     <script src="~/js/site.js" asp-append-version="true"></script>
-
     @await RenderSectionAsync("Scripts", required: false)
-
 </body>
 </html>

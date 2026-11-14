@@ -1,4 +1,4 @@
-﻿using BloodBankManagementSystem.Data;
+using BloodBankManagementSystem.Data;
 using BloodBankManagementSystem.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -67,6 +67,8 @@ namespace BloodBankManagementSystem.Controllers
             return View(bloodUnit);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
         {
             var bloodUnit = _context.BloodUnits.Find(id);

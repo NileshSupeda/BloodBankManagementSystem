@@ -1,4 +1,4 @@
-﻿@model BloodBankManagementSystem.Models.BloodRequest
+@model BloodBankManagementSystem.Models.BloodRequest
 
 @{
     ViewData["Title"] = "Add Blood Request";
@@ -9,7 +9,7 @@
     <p class="text-muted">Enter the blood request information below.</p>
 </div>
 
-<div class="card shadow-sm">
+<div class="form-card card shadow-sm border-0">
     <div class="card-body">
 
         <form asp-action="Create" method="post">
@@ -105,6 +105,8 @@
 
                 <input asp-for="UnitsRequired"
                        type="number"
+                       min="1"
+                       step="1"
                        class="form-control" />
 
                 <span asp-validation-for="UnitsRequired"

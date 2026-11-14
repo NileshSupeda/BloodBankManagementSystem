@@ -25,6 +25,12 @@ namespace BloodBankManagementSystem.Controllers
             ViewBag.AvailableBloodUnits =
                 _context.BloodUnits.Count(b => b.Status == "Available");
 
+            ViewBag.AvailableStockByGroup = _context.BloodUnits
+                .Where(b => b.Status == "Available")
+                .GroupBy(b => b.BloodGroup)
+                .Select(group => new { BloodGroup = group.Key, Count = group.Count() })
+                .ToDictionary(item => item.BloodGroup, item => item.Count);
+
             ViewBag.TotalBloodRequests =
                 _context.BloodRequests.Count();
 
